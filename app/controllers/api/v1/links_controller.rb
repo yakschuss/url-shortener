@@ -19,7 +19,7 @@ class Api::V1::LinksController < ApplicationController
       render json: { success: true, url: link.url, counter: link.counter}.as_json
 
     rescue ActiveRecord::RecordNotFound
-      render json: {error: "Not Implmeneted Yet"}
+      render json: {error: "Woops, nothing there"}
     end
   end
 
