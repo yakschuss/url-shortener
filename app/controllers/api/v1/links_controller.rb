@@ -23,5 +23,25 @@ class Api::V1::LinksController < ApplicationController
     end
   end
 
+  def urls
+    return_object = []
+
+    urls = params[:urls]
+
+    if urls.is_a?(Array)
+      urls.each do |url|
+        link = Link.create(url: url)
+        if link.save
+          return_object << {success: true, url: link.url, short: link.full_short_url}
+        else
+          return_object << {errors: "not yet implemented"}
+        end
+      end
+      render json: {urls: return_object }
+    else
+      render json: {errors: "not yet implemented"}
+    end
+
+  end
 
 end
