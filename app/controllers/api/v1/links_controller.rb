@@ -23,5 +23,25 @@ class Api::V1::LinksController < ApplicationController
     end
   end
 
+  def urls
+    return_object = []
+
+    urls = params[:urls]
+
+    if urls.is_a?(Array)
+      urls.each do |url|
+        link = Link.create(url: url)
+        if link.save
+          return_object << {success: true, url: link.url, short: link.full_short_url}
+        else
+          return_object << {success: false, url: link.url, errors: link.errors.full_messages}
+        end
+      end
+      render json: {urls: return_object }
+    else
+      render json: {error: "urls must be in an array"}
+    end
+
+  end
 
 end
