@@ -39,7 +39,7 @@ class Api::V1::LinksController < ApplicationController
       end
       render json: {urls: return_object }
     else
-      render json: {errors: "not yet implemented"}
+      render json: {error: "urls must be in an array"}
     end
 
   end
