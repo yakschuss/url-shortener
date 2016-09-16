@@ -72,10 +72,19 @@ RSpec.describe Api::V1::LinksController, type: :controller do
 
       end
     end
+
+    context "no array, malformed request" do
+      it "returns an error message" do
+        post :urls, format: :json, urls: "Yo"
+
+        expect(JSON.parse(response.body)).to eq({"error" => "urls must be in an array"})
+      end
+    end
   end
 
-
 end
+
+
 
 
 
