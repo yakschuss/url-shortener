@@ -61,6 +61,20 @@ RSpec.describe Api::V1::LinksController, type: :controller do
     end
   end
 
+  describe "#urls" do
+    context "valid JSON data" do
+      subject {post :urls, format: :json, urls: ["http://www.google.com", "http://www.yahoo.com", "http://www.bing.com"]}
+
+      it "returns an array of shortened urls" do
+        subject
+
+        expect(JSON.parse(response.body)).to match_array({"urls"=>[{"success"=>true, "url"=>"http://www.google.com", "short"=>"localhost:3000/1"}, {"success"=>true, "url"=>"http://www.yahoo.com", "short"=>"localhost:3000/2"}, {"success"=>true, "url"=>"http://www.bing.com", "short"=>"localhost:3000/3"}]})
+
+      end
+    end
+  end
+
+
 end
 
 
