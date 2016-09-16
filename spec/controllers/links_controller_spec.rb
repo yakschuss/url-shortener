@@ -13,6 +13,15 @@ RSpec.describe LinksController, type: :controller do
         expect(response).to redirect_to(link.url)
       end
     end
+
+    context "not found" do
+      it "renders the show page" do
+        get :show, short: "not-found-url"
+
+        expect(response).to render_template(:show)
+      end
+    end
+
   end
 
 
