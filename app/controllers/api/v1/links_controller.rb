@@ -7,7 +7,7 @@ class Api::V1::LinksController < ApplicationController
     if link.save
       render json: {success: true, url: link.url, short: link.full_short_url }.as_json
     else
-      render json: {message: "not yet implemented"}
+      render json: {success: false, url: link.url, error: link.errors.full_messages }.as_json
     end
   end
 
