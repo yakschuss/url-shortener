@@ -12,4 +12,14 @@ RSpec.describe Link, type: :model do
     end
   end
 
+
+  describe "#full_short_url" do
+    it "returns the base url with the url's short" do
+      link = Link.create(url: "https://www.google.com")
+
+      expect(link.full_short_url).to eq("localhost:3000/" + link.short)
+    end
+  end
+
+
 end
