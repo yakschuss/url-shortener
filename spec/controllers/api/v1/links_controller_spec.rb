@@ -80,6 +80,14 @@ RSpec.describe Api::V1::LinksController, type: :controller do
         expect(JSON.parse(response.body)).to eq({"error" => "urls must be in an array"})
       end
     end
+
+    context "invalid JSON data" do
+      it "returns the proper error" do
+        post :urls, format: :json, urls: ["http://www.google.com", "http://www.yahoo.com", "bing"]
+
+        expect(JSON.parse(response.body)).to eq({"urls"=>[{"success"=>true, "url"=>"http://www.google.com", "short"=>"localhost:3000/1"}, {"success"=> true, "url" => "http://www.yahoo.com", "short"=>"localhost:3000/2"}, {"success"=>false, "url"=>"bing", "errors"=>["Url is invalid"]}]})
+      end
+    end
   end
 
 end
