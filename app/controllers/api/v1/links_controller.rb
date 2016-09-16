@@ -34,7 +34,7 @@ class Api::V1::LinksController < ApplicationController
         if link.save
           return_object << {success: true, url: link.url, short: link.full_short_url}
         else
-          return_object << {errors: "not yet implemented"}
+          return_object << {success: false, url: link.url, errors: link.errors.full_messages}
         end
       end
       render json: {urls: return_object }
