@@ -5,7 +5,7 @@ class LinksController < ApplicationController
 
       link = Link.find_by!(short: params[:short])
 
-      link.count += 1
+      link.counter += 1
       link.save
 
       redirect_to link.url
