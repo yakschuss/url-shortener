@@ -6,4 +6,10 @@ class Link < ActiveRecord::Base
     self.save
   end
 
+  def full_short_url
+    ENV['BASE_URL'] + '/' + self.short
+  end
+
+
+
 end
