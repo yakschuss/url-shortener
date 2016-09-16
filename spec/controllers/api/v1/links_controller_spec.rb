@@ -21,7 +21,22 @@ RSpec.describe Api::V1::LinksController, type: :controller do
       end
     end
 
+    context "invalid attributes" do
+      it "returns the validation error in JSON" do
+        post :create, format: :json
 
+        expect(JSON.parse(response.body)).to eq({"success"=>false, "url"=>nil, "error"=>["Url can't be blank", "Url is invalid"]})
+      end
+
+      it "returns the validation error in JSON" do
+        post :create, format: :json, url: "something-that-fails-the-regex"
+
+        expect(JSON.parse(response.body)).to eq({"success" => false, "url" => "something-that-fails-the-regex", "error" => ["Url is invalid"]})
+      end
+
+    end
   end
 end
+
+
 
