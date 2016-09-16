@@ -12,4 +12,16 @@ class Api::V1::LinksController < ApplicationController
   end
 
 
+  def counter
+    begin
+      link = Link.find_by!(short: params[:url])
+
+      render json: { success: true, url: link.url, counter: link.counter}.as_json
+
+    rescue ActiveRecord::RecordNotFound
+      render json: {error: "Woops, nothing there"}
+    end
+  end
+
+
 end

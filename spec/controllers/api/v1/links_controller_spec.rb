@@ -36,6 +36,31 @@ RSpec.describe Api::V1::LinksController, type: :controller do
 
     end
   end
+
+  describe "#counter" do
+    context "valid JSON data" do
+
+      it "returns the url count" do
+        link = Link.create!(url: "http://www.google.com", counter: 7)
+        link.shorten
+
+        get :counter, url: link.short
+
+        expect(JSON.parse(response.body)).to eq({"success" => true, "url" => "http://www.google.com", "counter" => 7})
+      end
+    end
+
+
+    context "a url that doesn't exist" do
+      it "returns an error message" do
+        get :counter, url: "link that doesn't exist"
+
+        expect(JSON.parse(response.body)).to eq({"error" => "Woops, nothing there"})
+
+      end
+    end
+  end
+
 end
 
 

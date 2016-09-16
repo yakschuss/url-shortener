@@ -12,6 +12,14 @@ RSpec.describe LinksController, type: :controller do
 
         expect(response).to redirect_to(link.url)
       end
+
+      it "increases the url counter by 1" do
+        link = Link.create(url: "http://www.google.com", counter: 2)
+
+        get :show, short: link.short
+
+        expect(link.counter).to eq(3)
+      end
     end
 
     context "not found" do
@@ -23,6 +31,6 @@ RSpec.describe LinksController, type: :controller do
     end
 
   end
-
-
 end
+
+
