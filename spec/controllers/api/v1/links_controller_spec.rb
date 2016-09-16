@@ -49,6 +49,16 @@ RSpec.describe Api::V1::LinksController, type: :controller do
         expect(JSON.parse(response.body)).to eq({"success" => true, "url" => "http://www.google.com", "counter" => 7})
       end
     end
+
+
+    context "a url that doesn't exist" do
+      it "returns an error message" do
+        get :counter, url: "link that doesn't exist"
+
+        expect(JSON.parse(response.body)).to eq({"error" => "Woops, nothing there"})
+
+      end
+    end
   end
 
 end
