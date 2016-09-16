@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+url_array = IO.readlines(File.join(Rails.root, "test_file.txt")).reject { |line| line.empty? }
+count = 0
+
+url_array.each do |url|
+  url = url.chomp
+
+  Link.create!(url: url)
+
+  count += 1
+end
+
+puts "You just created #{count} links"
