@@ -18,6 +18,8 @@ RSpec.describe LinksController, type: :controller do
 
         get :show, short: link.short
 
+        link.reload
+
         expect(link.counter).to eq(3)
       end
     end
